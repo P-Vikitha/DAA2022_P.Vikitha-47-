@@ -1,0 +1,185 @@
+1.
+#include<stdio.h>
+#include<stdlib.h>
+ void insertion_sort(int arr[],int n);
+
+int main()
+{
+    int n;
+    int *arr;
+    printf("enetr the numer of elements in an array\n");
+    scanf("%d",&n);
+    arr=malloc(n*sizeof(int));
+    printf("enter the elemnts\n");
+    for(int i=0;i<n;i++)
+    {
+        printf("elements %d\n",i+1);
+        scanf("%d",&arr[i]);
+    }
+     insertion_sort(arr,n);
+
+     printf("after sorting");
+     for(int i=0;i<n;i++)
+     {
+         printf("%d\t",arr[i]);
+     }
+     return 0;
+}
+    
+
+    void insertion_sort(int arr[],int n)
+    {
+    int key,j;
+    
+    for(int i=1;i<n;i++)
+    {
+        key=arr[i];
+        j=i-1;
+
+        while(j>=0 && arr[j]>key)
+        {
+            arr[j+1]=arr[j];
+            j--;
+        }
+        arr[j+1]=key;
+    }
+}
+
+
+2.
+#include<stdio.h>
+#include<stdlib.h>
+void selection_sort(int arr[], int n);
+
+int main()
+{
+    int *arr;
+    int n;
+    arr=malloc(n*sizeof(int));
+
+    printf("enter the number of elements \n");
+    scanf("%d",&n);
+
+    printf("enetr the elemnts\n");
+    for(int i=0;i<n;i++)
+    {
+        printf("elements %d\n",i+1);
+        scanf("%d",&arr[i]);
+    }
+
+    selection_sort(arr,n);
+
+    printf("after sorting\n");
+    for(int i=0;i<n;i++)
+    {
+        printf("%d\t",arr[i]);
+    }
+    return 0;
+}
+
+void selection_sort(int arr[], int n)
+{
+    int mi,temp;
+    for(int i=0;i<n;i++)
+    {
+        mi=i;
+        for(int j=i+1;j<n;j++)
+        {
+            if(arr[j]<arr[mi])
+            {
+                mi=j;
+            }
+        }
+        temp=arr[i];
+        arr[i]=arr[mi];
+        arr[mi]=temp;
+
+    }
+}
+3.
+
+#include <stdio.h>
+#include<stdlib.h>
+
+void swap(int *a, int *b) {
+  int t;
+  t = *a;
+  *a = *b;
+  *b = t;
+}
+
+void duplicate(int arr[])
+{
+    for(int i=0;i<8;i++)
+    {
+        for(int j=i+1;j<8;j++)
+        {
+            if(arr[i]==arr[j])
+            {
+                printf("yess duplicate elemnts are present\n");
+            }
+            else{
+                printf("not present\n");
+            }
+        }
+    }
+}
+
+int partition(int arr[],int lb,int ub)
+    {
+        int start=lb, end=ub;
+        int pivot=arr[lb];
+
+
+        while(start<end)
+        {
+            while(pivot >= arr[start])
+            {
+                start++;
+            }
+            while(pivot < arr[end])
+            {
+                end--;
+            }
+            if(start<end)
+            {
+                swap(&arr[start],&arr[end]);
+            }
+        }
+        swap(&arr[lb],&arr[end]);
+        return end;
+    }
+
+void quick_sort(int array[],int lb, int ub)
+{
+    if(lb<=ub)
+    {
+        int loc;
+        loc=partition(array,lb,ub);
+        quick_sort(array,lb,loc-1);
+        quick_sort(array,loc+1,ub);
+    }
+}
+
+void printArray(int array[], int size) {
+  for (int i = 0; i < size; ++i) {
+    printf("%d  ", array[i]);
+  }
+  printf("\n");
+}
+
+int main() {
+  int arr[8] = {8, 7, 2, 1, 0, 9, 6,6};
+
+  int n = sizeof(arr) / sizeof(arr[0]);
+
+  printf("Unsorted Array\n");
+  printArray(arr, n);
+
+  quick_sort(arr, 0, n - 1);
+
+  printf("Sorted array in ascending order: \n");
+  printArray(arr, n);
+
+  duplicate(arr);
+}
