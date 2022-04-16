@@ -1,0 +1,154 @@
+1.
+#include<stdio.h>
+#include<stdlib.h>
+
+void merge_sort(int arr[],int lb, int ub)
+{
+    int mid;
+    if(lb<ub)
+    {
+        mid=(lb+ub)/2;
+        merge_sort(arr,lb,mid);
+        merge_sort(arr,mid+1,ub);
+        merge(arr,lb,mid,ub);
+    }
+}
+
+int merge(int arr[],int lb, int mid, int ub)
+{
+    int b[50];
+    int i=lb,k=lb,j=mid+1;
+    while(i<=mid && j<=ub)
+    {
+        if(arr[i]<=arr[j])
+        {
+            b[k]=arr[i];
+            i++;
+            k++;
+        }
+        else{
+            b[k]=arr[j];
+            j++;
+            k++;
+        }
+    }
+    if(j>ub)
+    {
+    while(i<=mid)
+    {
+
+        b[k]=arr[i];
+        i++;
+        k++;
+    }
+    }
+    else{
+    while(j<=ub)
+    {
+        b[k]=arr[j];
+        j++;
+        k++;
+    }
+    }
+    for(k=lb;k<=ub;k++)
+    {
+        arr[k]=b[k];
+    }
+
+
+}
+
+void printArray(int arr[], int size) {
+  for (int i = 0; i < size; ++i) {
+    printf("%d  ", arr[i]);
+  }
+  printf("\n");
+}
+
+
+int main() {
+  int data[] = {8, 7, 2, 1, 0, 9, 6};
+
+  int n = sizeof(data) / sizeof(data[0]);
+
+  printf("Unsorted Array\n");
+  printArray(data, n);
+
+  merge_sort(data, 0, n - 1);
+
+  printf("Sorted array in ascending order: \n");
+  printArray(data, n);
+}
+
+2.
+#include<stdio.h>
+#include<stdlib.h>
+
+
+    void swap(int *a, int *b) {
+  int t;
+  t = *a;
+  *a = *b;
+  *b = t;
+}
+
+int partition(int arr[],int lb,int ub)
+    {
+        int start=lb, end=ub;
+        int pivot=arr[lb];
+
+
+        while(start<end)
+        {
+            while(pivot >= arr[start])
+            {
+                start++;
+            }
+            while(pivot < arr[end])
+            {
+                end--;
+            }
+            if(start<end)
+            {
+                swap(&arr[start],&arr[end]);
+            }
+        }
+        swap(&arr[lb],&arr[end]);
+        return end;
+    }
+
+void quick_sort(int array[],int lb, int ub)
+{
+    if(lb<=ub)
+    {
+        int loc;
+        loc=partition(array,lb,ub);
+        quick_sort(array,lb,loc-1);
+        quick_sort(array,loc+1,ub);
+    }
+}
+
+void printArray(int array[], int size) {
+  for (int i = 0; i < size; ++i) {
+    printf("%d  ", array[i]);
+  }
+  printf("\n");
+}
+
+int main() {
+  int arr[8] = {8, 7, 2, 1, 0, 9, 6,6};
+
+  int n = sizeof(arr) / sizeof(arr[0]);
+
+  printf("Unsorted Array\n");
+  printArray(arr, n);
+
+  quick_sort(arr, 0, n - 1);
+
+  printf("Sorted array in ascending order: \n");
+  printArray(arr, n);
+
+  
+}
+ 3.
+ 
